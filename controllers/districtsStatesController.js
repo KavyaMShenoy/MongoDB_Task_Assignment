@@ -121,7 +121,7 @@ exports.deleteDistrictByName = async (req, res, next) => {
 
         const name = req.params.name;
 
-        const deletedDistrict = await Districts.findOneAndDelete({ name: name });
+        const deletedDistrict = await Districts.findOneAndDelete({ name: new RegExp('^' + name + '$', 'i') });
 
         if (!deletedDistrict) {
             return res.status(404).json({ message: 'District not found.', success: false })
